@@ -1,0 +1,835 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Progress_StudentsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassYearOfAdmission" Type="int" Nullable="false" />
+          <Property Name="ClassCourse" Type="int" Nullable="false" />
+          <Property Name="ClassPulpit" Type="int" Nullable="false" />
+          <Property Name="ClassQuantityStudent" Type="int" />
+        </EntityType>
+        <EntityType Name="Discipline">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisciplineName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisciplinePulpit" Type="int" Nullable="false" />
+          <Property Name="DisciplineHours" Type="int" Nullable="false" />
+          <Property Name="DisciplineFormatControl" Type="int" Nullable="false" />
+          <Property Name="DisciplineTeacher" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FacultyName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FacultyDean" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FacultyOfficeNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="FacultyHousingNumber" Type="int" Nullable="false" />
+          <Property Name="FacultyPhoneNumber" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="FormatControl">
+          <Key>
+            <PropertyRef Name="FormatID" />
+          </Key>
+          <Property Name="FormatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormatName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="int" Nullable="false" />
+          <Property Name="GenderName" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pulpit">
+          <Key>
+            <PropertyRef Name="PulpitID" />
+          </Key>
+          <Property Name="PulpitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PulpitName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PulpitFacultyID" Type="int" Nullable="false" />
+          <Property Name="PulpitManagerFullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PulpitOfficenumber" Type="nvarchar(max)" />
+          <Property Name="PulpitHousingNumber" Type="int" Nullable="false" />
+          <Property Name="PulpitPhoneNumber" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Progress_Students.dbo.stud" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentSurname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentPatronymic" Type="nvarchar" MaxLength="20" />
+          <Property Name="StudentClass" Type="int" Nullable="false" />
+          <Property Name="StudentDateOfBirth" Type="date" Nullable="false" />
+          <Property Name="StudentGender" Type="int" Nullable="false" />
+          <Property Name="StudentAdress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentCity" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentPhoneNumber" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SubordinatesSummary">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Name="SubID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubSummary" Type="int" Nullable="false" />
+          <Property Name="SubStudent" Type="int" Nullable="false" />
+          <Property Name="SubGrade" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Summary">
+          <Key>
+            <PropertyRef Name="SummaryID" />
+          </Key>
+          <Property Name="SummaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SummaryClass" Type="int" Nullable="false" />
+          <Property Name="SummaryTeacher" Type="int" Nullable="false" />
+          <Property Name="SummaryDiscipline" Type="int" Nullable="false" />
+          <Property Name="SummarySemester" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherFullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeacherPost" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeacherExperience" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="TeacherPulpit" Type="int" Nullable="false" />
+          <Property Name="TeacherDayOfBirth" Type="date" Nullable="false" />
+          <Property Name="TeacherDayWork" Type="date" />
+        </EntityType>
+        <Association Name="FK__Class__ClassPulp__49C3F6B7">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="ClassPulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disciplin__Disci__66603565">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplinePulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disciplin__Disci__6754599E">
+          <End Role="FormatControl" Type="Self.FormatControl" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormatControl">
+              <PropertyRef Name="FormatID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplineFormatControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pulpit__PulpitFa__44FF419A">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Pulpit">
+              <PropertyRef Name="PulpitFacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Student__4E88ABD4">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Student__4F7CD00D">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subordina__SubSt__71D1E811">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subordina__SubSu__70DDC3D8">
+          <End Role="Summary" Type="Self.Summary" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Summary">
+              <PropertyRef Name="SummaryID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubSummary" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6C190EBB">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6D0D32F4">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6E01572D">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryDiscipline" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teachers__Teache__5CD6CB2B">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="TeacherPulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Discipline_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplineTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Progress_StudentsModelContainer">
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormatControl" EntityType="Self.FormatControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pulpit" EntityType="Self.Pulpit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Summary" EntityType="Self.Summary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disciplin__Disci__66603565" Association="Self.FK__Disciplin__Disci__66603565">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disciplin__Disci__6754599E" Association="Self.FK__Disciplin__Disci__6754599E">
+            <End Role="FormatControl" EntitySet="FormatControl" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pulpit__PulpitFa__44FF419A" Association="Self.FK__Pulpit__PulpitFa__44FF419A">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Pulpit" EntitySet="Pulpit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Student__4E88ABD4" Association="Self.FK__Student__Student__4E88ABD4">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Student__4F7CD00D" Association="Self.FK__Student__Student__4F7CD00D">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subordina__SubSt__71D1E811" Association="Self.FK__Subordina__SubSt__71D1E811">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subordina__SubSu__70DDC3D8" Association="Self.FK__Subordina__SubSu__70DDC3D8">
+            <End Role="Summary" EntitySet="Summary" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6C190EBB" Association="Self.FK__Summary__Summary__6C190EBB">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6D0D32F4" Association="Self.FK__Summary__Summary__6D0D32F4">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6E01572D" Association="Self.FK__Summary__Summary__6E01572D">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teachers__Teache__5CD6CB2B" Association="Self.FK__Teachers__Teache__5CD6CB2B">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discipline_Teachers" Association="Self.FK_Discipline_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Progress_StudentsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="ClassName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassYearOfAdmission" Type="Int32" Nullable="false" />
+          <Property Name="ClassCourse" Type="Int32" Nullable="false" />
+          <Property Name="ClassPulpit" Type="Int32" Nullable="false" />
+          <Property Name="ClassQuantityStudent" Type="Int32" />
+          <NavigationProperty Name="Pulpit" Relationship="Self.FK__Class__ClassPulp__49C3F6B7" FromRole="Class" ToRole="Pulpit" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Student__Student__4E88ABD4" FromRole="Class" ToRole="Students" />
+          <NavigationProperty Name="Summary" Relationship="Self.FK__Summary__Summary__6C190EBB" FromRole="Class" ToRole="Summary" />
+        </EntityType>
+        <EntityType Name="Discipline">
+          <Key>
+            <PropertyRef Name="DisciplineID" />
+          </Key>
+          <Property Name="DisciplineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisciplineName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisciplinePulpit" Type="Int32" Nullable="false" />
+          <Property Name="DisciplineHours" Type="Int32" Nullable="false" />
+          <Property Name="DisciplineFormatControl" Type="Int32" Nullable="false" />
+          <Property Name="DisciplineTeacher" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pulpit" Relationship="Self.FK__Disciplin__Disci__66603565" FromRole="Discipline" ToRole="Pulpit" />
+          <NavigationProperty Name="FormatControl" Relationship="Self.FK__Disciplin__Disci__6754599E" FromRole="Discipline" ToRole="FormatControl" />
+          <NavigationProperty Name="Summary" Relationship="Self.FK__Summary__Summary__6E01572D" FromRole="Discipline" ToRole="Summary" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Discipline_Teachers" FromRole="Discipline" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FacultyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FacultyDean" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FacultyOfficeNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyHousingNumber" Type="Int32" Nullable="false" />
+          <Property Name="FacultyPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pulpit" Relationship="Self.FK__Pulpit__PulpitFa__44FF419A" FromRole="Faculty" ToRole="Pulpit" />
+        </EntityType>
+        <EntityType Name="FormatControl">
+          <Key>
+            <PropertyRef Name="FormatID" />
+          </Key>
+          <Property Name="FormatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormatName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Disciplin__Disci__6754599E" FromRole="FormatControl" ToRole="Discipline" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderID" />
+          </Key>
+          <Property Name="GenderID" Type="Int32" Nullable="false" />
+          <Property Name="GenderName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Student__Student__4F7CD00D" FromRole="Gender" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Pulpit">
+          <Key>
+            <PropertyRef Name="PulpitID" />
+          </Key>
+          <Property Name="PulpitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PulpitName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PulpitFacultyID" Type="Int32" Nullable="false" />
+          <Property Name="PulpitManagerFullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PulpitOfficenumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PulpitHousingNumber" Type="Int32" Nullable="false" />
+          <Property Name="PulpitPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Class__ClassPulp__49C3F6B7" FromRole="Pulpit" ToRole="Class" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Disciplin__Disci__66603565" FromRole="Pulpit" ToRole="Discipline" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__Pulpit__PulpitFa__44FF419A" FromRole="Pulpit" ToRole="Faculty" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK__Teachers__Teache__5CD6CB2B" FromRole="Pulpit" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentSurname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentPatronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StudentClass" Type="Int32" Nullable="false" />
+          <Property Name="StudentDateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StudentGender" Type="Int32" Nullable="false" />
+          <Property Name="StudentAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentCity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Student__Student__4E88ABD4" FromRole="Students" ToRole="Class" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK__Student__Student__4F7CD00D" FromRole="Students" ToRole="Gender" />
+          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK__Subordina__SubSt__71D1E811" FromRole="Students" ToRole="SubordinatesSummary" />
+        </EntityType>
+        <EntityType Name="SubordinatesSummary">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Name="SubID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubSummary" Type="Int32" Nullable="false" />
+          <Property Name="SubStudent" Type="Int32" Nullable="false" />
+          <Property Name="SubGrade" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Subordina__SubSt__71D1E811" FromRole="SubordinatesSummary" ToRole="Students" />
+          <NavigationProperty Name="Summary" Relationship="Self.FK__Subordina__SubSu__70DDC3D8" FromRole="SubordinatesSummary" ToRole="Summary" />
+        </EntityType>
+        <EntityType Name="Summary">
+          <Key>
+            <PropertyRef Name="SummaryID" />
+          </Key>
+          <Property Name="SummaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SummaryClass" Type="Int32" Nullable="false" />
+          <Property Name="SummaryTeacher" Type="Int32" Nullable="false" />
+          <Property Name="SummaryDiscipline" Type="Int32" Nullable="false" />
+          <Property Name="SummarySemester" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Summary__Summary__6C190EBB" FromRole="Summary" ToRole="Class" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK__Summary__Summary__6E01572D" FromRole="Summary" ToRole="Discipline" />
+          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK__Subordina__SubSu__70DDC3D8" FromRole="Summary" ToRole="SubordinatesSummary" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK__Summary__Summary__6D0D32F4" FromRole="Summary" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeacherPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeacherExperience" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="TeacherPulpit" Type="Int32" Nullable="false" />
+          <Property Name="TeacherDayOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TeacherDayWork" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Discipline" Relationship="Self.FK_Discipline_Teachers" FromRole="Teachers" ToRole="Discipline" />
+          <NavigationProperty Name="Pulpit" Relationship="Self.FK__Teachers__Teache__5CD6CB2B" FromRole="Teachers" ToRole="Pulpit" />
+          <NavigationProperty Name="Summary" Relationship="Self.FK__Summary__Summary__6D0D32F4" FromRole="Teachers" ToRole="Summary" />
+        </EntityType>
+        <Association Name="FK__Class__ClassPulp__49C3F6B7">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="ClassPulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Student__4E88ABD4">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6C190EBB">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disciplin__Disci__66603565">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplinePulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disciplin__Disci__6754599E">
+          <End Role="FormatControl" Type="Self.FormatControl" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormatControl">
+              <PropertyRef Name="FormatID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplineFormatControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6E01572D">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="DisciplineID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryDiscipline" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Discipline_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Discipline">
+              <PropertyRef Name="DisciplineTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pulpit__PulpitFa__44FF419A">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="Pulpit">
+              <PropertyRef Name="PulpitFacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Student__4F7CD00D">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teachers__Teache__5CD6CB2B">
+          <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pulpit">
+              <PropertyRef Name="PulpitID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="TeacherPulpit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subordina__SubSt__71D1E811">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subordina__SubSu__70DDC3D8">
+          <End Role="Summary" Type="Self.Summary" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Summary">
+              <PropertyRef Name="SummaryID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubSummary" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Summary__Summary__6D0D32F4">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="Summary">
+              <PropertyRef Name="SummaryTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Progress_StudentsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Class" EntityType="Self.Class" />
+          <EntitySet Name="Discipline" EntityType="Self.Discipline" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" />
+          <EntitySet Name="FormatControl" EntityType="Self.FormatControl" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="Pulpit" EntityType="Self.Pulpit" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" />
+          <EntitySet Name="Summary" EntityType="Self.Summary" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Student__4E88ABD4" Association="Self.FK__Student__Student__4E88ABD4">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6C190EBB" Association="Self.FK__Summary__Summary__6C190EBB">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disciplin__Disci__66603565" Association="Self.FK__Disciplin__Disci__66603565">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disciplin__Disci__6754599E" Association="Self.FK__Disciplin__Disci__6754599E">
+            <End Role="FormatControl" EntitySet="FormatControl" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6E01572D" Association="Self.FK__Summary__Summary__6E01572D">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discipline_Teachers" Association="Self.FK_Discipline_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pulpit__PulpitFa__44FF419A" Association="Self.FK__Pulpit__PulpitFa__44FF419A">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Pulpit" EntitySet="Pulpit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Student__4F7CD00D" Association="Self.FK__Student__Student__4F7CD00D">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teachers__Teache__5CD6CB2B" Association="Self.FK__Teachers__Teache__5CD6CB2B">
+            <End Role="Pulpit" EntitySet="Pulpit" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subordina__SubSt__71D1E811" Association="Self.FK__Subordina__SubSt__71D1E811">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subordina__SubSu__70DDC3D8" Association="Self.FK__Subordina__SubSu__70DDC3D8">
+            <End Role="Summary" EntitySet="Summary" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Summary__Summary__6D0D32F4" Association="Self.FK__Summary__Summary__6D0D32F4">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Summary" EntitySet="Summary" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Progress_StudentsModelContainer" CdmEntityContainer="Progress_StudentsEntities">
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ClassYearOfAdmission" ColumnName="ClassYearOfAdmission" />
+                <ScalarProperty Name="ClassCourse" ColumnName="ClassCourse" />
+                <ScalarProperty Name="ClassPulpit" ColumnName="ClassPulpit" />
+                <ScalarProperty Name="ClassQuantityStudent" ColumnName="ClassQuantityStudent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discipline">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Discipline">
+              <MappingFragment StoreEntitySet="Discipline">
+                <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+                <ScalarProperty Name="DisciplineName" ColumnName="DisciplineName" />
+                <ScalarProperty Name="DisciplinePulpit" ColumnName="DisciplinePulpit" />
+                <ScalarProperty Name="DisciplineHours" ColumnName="DisciplineHours" />
+                <ScalarProperty Name="DisciplineFormatControl" ColumnName="DisciplineFormatControl" />
+                <ScalarProperty Name="DisciplineTeacher" ColumnName="DisciplineTeacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculty">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+                <ScalarProperty Name="FacultyDean" ColumnName="FacultyDean" />
+                <ScalarProperty Name="FacultyOfficeNumber" ColumnName="FacultyOfficeNumber" />
+                <ScalarProperty Name="FacultyHousingNumber" ColumnName="FacultyHousingNumber" />
+                <ScalarProperty Name="FacultyPhoneNumber" ColumnName="FacultyPhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormatControl">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.FormatControl">
+              <MappingFragment StoreEntitySet="FormatControl">
+                <ScalarProperty Name="FormatID" ColumnName="FormatID" />
+                <ScalarProperty Name="FormatName" ColumnName="FormatName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderID" ColumnName="GenderID" />
+                <ScalarProperty Name="GenderName" ColumnName="GenderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pulpit">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Pulpit">
+              <MappingFragment StoreEntitySet="Pulpit">
+                <ScalarProperty Name="PulpitID" ColumnName="PulpitID" />
+                <ScalarProperty Name="PulpitName" ColumnName="PulpitName" />
+                <ScalarProperty Name="PulpitFacultyID" ColumnName="PulpitFacultyID" />
+                <ScalarProperty Name="PulpitManagerFullName" ColumnName="PulpitManagerFullName" />
+                <ScalarProperty Name="PulpitOfficenumber" ColumnName="PulpitOfficenumber" />
+                <ScalarProperty Name="PulpitHousingNumber" ColumnName="PulpitHousingNumber" />
+                <ScalarProperty Name="PulpitPhoneNumber" ColumnName="PulpitPhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentSurname" ColumnName="StudentSurname" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentPatronymic" ColumnName="StudentPatronymic" />
+                <ScalarProperty Name="StudentClass" ColumnName="StudentClass" />
+                <ScalarProperty Name="StudentDateOfBirth" ColumnName="StudentDateOfBirth" />
+                <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
+                <ScalarProperty Name="StudentAdress" ColumnName="StudentAdress" />
+                <ScalarProperty Name="StudentCity" ColumnName="StudentCity" />
+                <ScalarProperty Name="StudentPhoneNumber" ColumnName="StudentPhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubordinatesSummary">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.SubordinatesSummary">
+              <MappingFragment StoreEntitySet="SubordinatesSummary">
+                <ScalarProperty Name="SubID" ColumnName="SubID" />
+                <ScalarProperty Name="SubSummary" ColumnName="SubSummary" />
+                <ScalarProperty Name="SubStudent" ColumnName="SubStudent" />
+                <ScalarProperty Name="SubGrade" ColumnName="SubGrade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Summary">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Summary">
+              <MappingFragment StoreEntitySet="Summary">
+                <ScalarProperty Name="SummaryID" ColumnName="SummaryID" />
+                <ScalarProperty Name="SummaryClass" ColumnName="SummaryClass" />
+                <ScalarProperty Name="SummaryTeacher" ColumnName="SummaryTeacher" />
+                <ScalarProperty Name="SummaryDiscipline" ColumnName="SummaryDiscipline" />
+                <ScalarProperty Name="SummarySemester" ColumnName="SummarySemester" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="TeacherFullName" ColumnName="TeacherFullName" />
+                <ScalarProperty Name="TeacherPost" ColumnName="TeacherPost" />
+                <ScalarProperty Name="TeacherExperience" ColumnName="TeacherExperience" />
+                <ScalarProperty Name="TeacherPulpit" ColumnName="TeacherPulpit" />
+                <ScalarProperty Name="TeacherDayOfBirth" ColumnName="TeacherDayOfBirth" />
+                <ScalarProperty Name="TeacherDayWork" ColumnName="TeacherDayWork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

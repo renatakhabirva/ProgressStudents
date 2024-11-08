@@ -1,0 +1,27 @@
+﻿<Window x:Class="ProgressStudents.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProgressStudents"
+        mc:Ignorable="d"
+        Title="ProgressStudents" MinHeight="650" MinWidth="700" WindowStartupLocation="CenterScreen" Icon="pictures\progressicon.png" FontFamily="Times New Roman" FontSize="26">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Name="ClassTB" Text="Группа" HorizontalAlignment="Center"></TextBlock>
+            <ComboBox Name="ClassCB" Width="400" ></ComboBox>
+            <TextBlock Text="Дисциплина" HorizontalAlignment="Center"></TextBlock>
+            <ComboBox Name="DisciplineCB" Width="400" ></ComboBox>
+            <TextBlock Text="Семестр" HorizontalAlignment="Center"></TextBlock>
+            <TextBox Name="SemesterTB" Width="400"></TextBox>
+            <TextBlock Text="Преподаватель" HorizontalAlignment="Center"></TextBlock>
+            <ComboBox Name="TeacherCB" Width="400" ></ComboBox>
+            <Button Height="40" Width="200" Margin="20" Background="BlueViolet" Foreground="White" Content = "Далее" Click="Button_Click"></Button>
+        </StackPanel>
+        <Frame Name="SummaryFrame" Grid.Row="1" Visibility="Hidden"></Frame>
+    </Grid>
+</Window>

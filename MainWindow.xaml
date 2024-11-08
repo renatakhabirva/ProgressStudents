@@ -1,0 +1,22 @@
+﻿<Window x:Class="ProgressStudents.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProgressStudents"
+        mc:Ignorable="d"
+        Title="ProgressStudents" MinHeight="750" MinWidth="1000" FontFamily="Times New Roman" Icon="pictures\progressicon.png" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Name="AddSummaryButton" Content="Создать ведомость" HorizontalAlignment="Right" Width="200" Height="30" FontSize="18" Background="BlueViolet" Foreground="White" Grid.Row="0" Click="AddSummaryButton_Click"></Button>
+        <Frame Name="MainFrame" Grid.Row="2"></Frame>
+        <TextBlock Text="Успеваемость студентов" FontSize="30" HorizontalAlignment="Center" Grid.Row="0"></TextBlock>
+        
+        
+        
+    </Grid>
+</Window>

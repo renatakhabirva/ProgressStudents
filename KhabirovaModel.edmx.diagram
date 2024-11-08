@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdeb188e3c4542d9b0c7b91f9e1ed594" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="Progress_StudentsModel.Class" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Discipline" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Faculty" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.FormatControl" Width="1.5" PointX="8.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Gender" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Pulpit" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Students" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.SubordinatesSummary" Width="1.5" PointX="9.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Summary" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.Teachers" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Class__ClassPulp__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Student__Student__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Summary__Summary__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Disciplin__Disci__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Disciplin__Disci__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Summary__Summary__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK_Discipline_Teachers" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Pulpit__PulpitFa__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Student__Student__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Teachers__Teache__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Subordina__SubSt__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Subordina__SubSu__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="Progress_StudentsModel.FK__Summary__Summary__6D0D32F4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
