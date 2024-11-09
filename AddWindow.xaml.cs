@@ -19,20 +19,25 @@ namespace ProgressStudents
     /// </summary>
     public partial class AddWindow : Window
     {
-        private Summary _currentSummary = new Summary();
+        List<Summary> selectedSummary = new List<Summary>();
+        private Summary summary = new Summary();
+
+
         public AddWindow()
         {
             InitializeComponent();
-            DataContext = _currentSummary;
-            SummaryFrame.Navigate(new SummaryPage());
-            MainClass.SummaryFrame = SummaryFrame;
+            
+            //SummaryFrame.Navigate(new SummaryPage());
+            //MainClass.SummaryFrame = SummaryFrame;
+            this.DataContext = Progress_StudentsEntities.GetContext();
             var currentClass = Progress_StudentsEntities.GetContext().Class.ToList();
             ClassCB.ItemsSource = currentClass.Select(x => $"{ x.ClassName}");
-            var currentDiscipline = Progress_StudentsEntities.GetContext().Discipline.ToList();
+            /*var currentDiscipline = Progress_StudentsEntities.GetContext().Discipline.ToList();
             DisciplineCB.ItemsSource = currentDiscipline.Select(x => $"{x.DisciplineName}");
             var currentTeacher = Progress_StudentsEntities.GetContext().Teachers.ToList();
-            TeacherCB.ItemsSource = currentTeacher.Select(x => $"{x.TeacherFullName}");
+            TeacherCB.ItemsSource = currentTeacher.Select(x => $"{x.TeacherFullName}");*/
         }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

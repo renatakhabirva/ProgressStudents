@@ -13,16 +13,17 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <TextBlock Name="CountTB" FontSize="18" Width="200" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             
             <Image Source="pictures\search.png" Height="30" Width="30" Grid.Row="1" HorizontalAlignment="Left"></Image>
-            <TextBox Name="SearchTB" Height="30" FontSize="18" Grid.Row="1" Margin="30" TextChanged="TextBox_TextChanged" Width="500"></TextBox>
-            <ComboBox Name="ComboType" Width="250" Height="30" SelectionChanged="ComboType_SelectionChanged">
+            <TextBox Name="SearchTB" Height="30" FontSize="18" Grid.Row="1" TextChanged="TextBox_TextChanged" Width="350"></TextBox>
+            <ComboBox Name="ComboType" Width="200" Height="30" SelectionChanged="ComboType_SelectionChanged">
                 <TextBlock Text="По группам от А до Я"></TextBlock>
                 <TextBlock Text="По группам от Я до А"></TextBlock>
             </ComboBox>
-            <ComboBox Name="SortCB" Width="250" Height="30" Margin="10" SelectionChanged="SortCB_SelectionChanged">
+            <ComboBox Name="SortCB" Width="200" Height="30" Margin="10" SelectionChanged="SortCB_SelectionChanged">
                 <TextBlock Text="Семестр"></TextBlock>
                 <TextBlock Text="Семестр 1 - 2"></TextBlock>
                 <TextBlock Text="Семестр 3 - 4"></TextBlock>
@@ -30,16 +31,21 @@
                 <TextBlock Text="Семестр 7 - 8"></TextBlock>
                 <TextBlock Text="Семестр 9 - 10"></TextBlock>
             </ComboBox>
-            
+            <Button Name="AddSummaryButton" Content="Создать ведомость" HorizontalAlignment="Right" Width="150" Height="30" FontSize="18" Background="BlueViolet" Foreground="White" Grid.Row="0" Click="AddSummaryButton_Click"></Button>
+
+
         </StackPanel>
         <ListView Name="SummaryList" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    
                     <StackPanel Orientation="Vertical" >
+                        
                         <TextBlock Text="{Binding Class.ClassName, StringFormat=Группа: {0 } }"></TextBlock>
                         <TextBlock Text="{Binding Discipline.DisciplineName, StringFormat=Дисциплина: {0}}" ></TextBlock>
                         <TextBlock Text="{Binding Teachers.TeacherFullName, StringFormat=Преподаватель: {0}}"></TextBlock>
                         <TextBlock Text="{Binding SummarySemester, StringFormat=Семестр: {0}}"></TextBlock>
+                        <Button Name="DeleteButton" Width="200" Height="30" Content="Удалить ведомость" Click="DeleteButton_Click"></Button>
                         <ListView Name="SumList" ItemsSource="{Binding SubordinatesSummary}">
                             <ListView.View>
                                 <GridView>
@@ -74,6 +80,7 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

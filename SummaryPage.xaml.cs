@@ -20,6 +20,7 @@ namespace ProgressStudents
     /// </summary>
     public partial class SummaryPage : Page
     {
+        
         public SummaryPage()
         {
             InitializeComponent();

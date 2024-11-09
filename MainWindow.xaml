@@ -12,7 +12,6 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Name="AddSummaryButton" Content="Создать ведомость" HorizontalAlignment="Right" Width="200" Height="30" FontSize="18" Background="BlueViolet" Foreground="White" Grid.Row="0" Click="AddSummaryButton_Click"></Button>
         <Frame Name="MainFrame" Grid.Row="2"></Frame>
         <TextBlock Text="Успеваемость студентов" FontSize="30" HorizontalAlignment="Center" Grid.Row="0"></TextBlock>
         

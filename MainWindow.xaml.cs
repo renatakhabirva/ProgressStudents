@@ -20,18 +20,20 @@ namespace ProgressStudents
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Summary> selectedSummary = new List<Summary>();
+        private Summary summary = new Summary();
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new ListPage());
             MainClass.MainFrame = MainFrame;
+            MainFrame.Navigate(new ListPage());
+            
             
         }
 
         private void AddSummaryButton_Click(object sender, RoutedEventArgs e)
         {
-            AddWindow addWindow = new AddWindow();
-            addWindow.Show();
+             
 
         }
     }

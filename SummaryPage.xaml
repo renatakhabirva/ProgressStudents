@@ -9,7 +9,7 @@
       Title="SummaryPage" >
 
     <Grid>
-        <ListView Name="ListPage" ItemsSource="{Binding SubordinatesSummary}">
+        <ListView Name="ListViewSumm" ItemsSource="{Binding SubordinatesSummary}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Фамилия">

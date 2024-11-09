@@ -115,5 +115,16 @@ namespace ProgressStudents
             }
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddSummaryButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            AddWindow addWindow = new AddWindow();
+            addWindow.Show();
+        }
     }
 }

@@ -13,7 +13,8 @@
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Center">
             <TextBlock Name="ClassTB" Text="Группа" HorizontalAlignment="Center"></TextBlock>
-            <ComboBox Name="ClassCB" Width="400" ></ComboBox>
+            <ComboBox Name="ClassCB" Width="400">
+            </ComboBox>
             <TextBlock Text="Дисциплина" HorizontalAlignment="Center"></TextBlock>
             <ComboBox Name="DisciplineCB" Width="400" ></ComboBox>
             <TextBlock Text="Семестр" HorizontalAlignment="Center"></TextBlock>
