@@ -9,7 +9,7 @@
       Title="SummaryPage" >
 
     <Grid>
-        <ListView Name="ListViewSumm" ItemsSource="{Binding SubordinatesSummary}">
+        <ListView Name="ListViewAdd" ItemsSource="{Binding SubordinatesSummary}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Фамилия">
@@ -36,7 +36,7 @@
                     <GridViewColumn Header="Оценка">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding SubGrade}"></TextBox>
+                                <TextBox Text="{Binding SubGrade}" ></TextBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

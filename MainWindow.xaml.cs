@@ -27,14 +27,7 @@ namespace ProgressStudents
             InitializeComponent();
             MainClass.MainFrame = MainFrame;
             MainFrame.Navigate(new ListPage());
-            
-            
         }
 
-        private void AddSummaryButton_Click(object sender, RoutedEventArgs e)
-        {
-             
-
-        }
     }
 }

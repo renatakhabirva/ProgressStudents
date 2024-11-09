@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ProgressStudents"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1000"
-      Title="ListPage" FontFamily="Times New Roman" FontSize="18">
+      Title="ListPage" FontFamily="Times New Roman" FontSize="16">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,12 +14,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <TextBlock Name="CountTB" FontSize="18" Width="200" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             
             <Image Source="pictures\search.png" Height="30" Width="30" Grid.Row="1" HorizontalAlignment="Left"></Image>
             <TextBox Name="SearchTB" Height="30" FontSize="18" Grid.Row="1" TextChanged="TextBox_TextChanged" Width="350"></TextBox>
-            <ComboBox Name="ComboType" Width="200" Height="30" SelectionChanged="ComboType_SelectionChanged">
+            <ComboBox Name="ComboType" Width="200" Height="30" SelectionChanged="ComboType_SelectionChanged" Margin="10">
                 <TextBlock Text="По группам от А до Я"></TextBlock>
                 <TextBlock Text="По группам от Я до А"></TextBlock>
             </ComboBox>
@@ -31,9 +30,8 @@
                 <TextBlock Text="Семестр 7 - 8"></TextBlock>
                 <TextBlock Text="Семестр 9 - 10"></TextBlock>
             </ComboBox>
-            <Button Name="AddSummaryButton" Content="Создать ведомость" HorizontalAlignment="Right" Width="150" Height="30" FontSize="18" Background="BlueViolet" Foreground="White" Grid.Row="0" Click="AddSummaryButton_Click"></Button>
-
-
+            <Button Margin="10" Name="AddSummaryButton" Content="Создать ведомость" HorizontalAlignment="Right" Width="150" Height="30" FontSize="18" Background="BlueViolet" Foreground="White" Grid.Row="0" Click="AddSummaryButton_Click"></Button>
+            <TextBlock Name="CountTB" FontSize="18" Width="200" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
         <ListView Name="SummaryList" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
             <ListView.ItemTemplate>

@@ -88,30 +88,33 @@ namespace ProgressStudents
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            var textBox = sender as TextBox;
-            if (textBox != null)
+            if (sender is TextBox textBox && textBox.DataContext is SubordinatesSummary summary)
             {
-                var dataContext = textBox.DataContext;
-                if (dataContext is SubordinatesSummary summary)
-                {
-                    summary.SubGrade = textBox.Text;
-                    UpdateSummary();
-                    SaveChangesToDatabase(summary);
-                }
+                summary.SubGrade = textBox.Text;
+                UpdateSummary();
+                SaveChangesToDatabase(summary);
             }
         }
 
-
         private void SaveChangesToDatabase(SubordinatesSummary summary)
         {
-            using (var context = Progress_StudentsEntities.GetContext())
+            try
             {
-                var entity = context.SubordinatesSummary.FirstOrDefault(s => s.SubID == summary.SubID);
-                if (entity != null)
+                Progress_StudentsEntities.GetContext().SaveChanges();
+                MessageBox.Show("Информация сохранена");
+                /*using (var context = Progress_StudentsEntities.GetContext())
                 {
-                    entity.SubGrade = summary.SubGrade;
-                    context.SaveChanges();
-                }
+                    var entity = context.SubordinatesSummary.FirstOrDefault(s => s.SubID == summary.SubID);
+                    if (entity != null && entity.SubGrade != summary.SubGrade)
+                    {
+                        entity.SubGrade = summary.SubGrade;
+                        context.SaveChanges();
+                    }
+                }*/
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -122,9 +125,8 @@ namespace ProgressStudents
 
         private void AddSummaryButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            AddWindow addWindow = new AddWindow();
-            addWindow.Show();
+
+            new AddWindow().Show();
         }
     }
 }
