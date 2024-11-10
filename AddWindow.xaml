@@ -8,8 +8,8 @@
         Title="ProgressStudents" MinHeight="650" MinWidth="700" WindowStartupLocation="CenterScreen" Icon="pictures\progressicon.png" FontFamily="Times New Roman" FontSize="26">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Center">
             <TextBlock Name="ClassTB" Text="Группа" HorizontalAlignment="Center"></TextBlock>
@@ -22,6 +22,39 @@
             <ComboBox Name="TeacherCB" Width="400" ></ComboBox>
             <Button Height="40" Width="200" Margin="20" Background="BlueViolet" Foreground="White" Content = "Далее" Click="Button_Click"></Button>
         </StackPanel>
-        <Frame Name="SummaryFrame" Grid.Row="1" Visibility="Hidden"></Frame>
+        <ListView Name="ListViewAdd" Grid.Row="1" FontSize="16">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Фамилия">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Students.StudentSurname}"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Имя">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Students.StudentName}"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Отчетство">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Students.StudentPatronymic}"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Оценка">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Name="EditGrade" Text="{Binding SubGrade}" LostFocus="EditGrade_LostFocus" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

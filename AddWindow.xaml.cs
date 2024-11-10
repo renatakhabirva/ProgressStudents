@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +28,9 @@ namespace ProgressStudents
         public AddWindow( )
         {
             InitializeComponent();
-            MainClass.SummaryFrame = SummaryFrame;
-            SummaryFrame.Navigate(new SummaryPage());
             
             DataContext = _currentSummary;
+            
             var currentClass = Progress_StudentsEntities.GetContext().Class.ToList();
             ClassCB.ItemsSource = currentClass.Select(x => $"{x.ClassName}");
             var currentDiscipline = Progress_StudentsEntities.GetContext().Discipline.ToList();
@@ -91,6 +92,8 @@ namespace ProgressStudents
                     int newSummaryId = newSummary.SummaryID;
 
                     var studentsInClass = db.Students.Where(s => s.StudentClass == classId).ToList();
+                    List<SubordinatesSummary> subordinatesList = new List<SubordinatesSummary>();
+                    
                     foreach (var student in studentsInClass)
                     {
                         var newSubordinate = new SubordinatesSummary()
@@ -100,25 +103,64 @@ namespace ProgressStudents
                             SubGrade = "Введите оценку"
                         };
                         db.SubordinatesSummary.Add(newSubordinate);
+                       
                     }
                     
-                    db.SaveChanges();  // Save all new SubordinatesSummary entries
-                                       //SummaryFrame.Visibility = Visibility.Visible;
-                    var newSubordinate1 = new SubordinatesSummary(/* параметры */);
-
-                    // Отображаем SummaryPage в текущем окне AddWindow
-                    ShowSummaryPage(newSubordinate1);
-
-
-                    MessageBox.Show("Запись успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                    db.SaveChanges();
+                    ListViewAdd.ItemsSource = db.SubordinatesSummary.Where(ss => ss.SubSummary== newSummaryId).ToList();
+                    
                 
+                MessageBox.Show("Запись успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                } 
             }  
-            
 
         }
-        
-        
+
+        private void EditGrade_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Получаем ссылку на TextBox, который потерял фокус
+            TextBox editGrade = sender as TextBox;
+
+            if (editGrade != null)
+            {
+                // Получаем данные привязки к этому TextBox'у
+                SubordinatesSummary subordinatesSummary = editGrade.DataContext as SubordinatesSummary;
+
+                if (subordinatesSummary != null)
+                {
+                    // Обновляем значение SubGrade у соответствующей записи
+                    subordinatesSummary.SubGrade = editGrade.Text;
+
+                    try
+                    {
+                        // Сохраняем изменения в базу данных
+                        using (var db = new Progress_StudentsEntities())
+                        {
+                            db.Entry(subordinatesSummary).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+
+                        MessageBox.Show("Изменения сохранены!", "Success");
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                sb.AppendLine($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                        MessageBox.Show(sb.ToString(), "Ошибка валидации");
+                    }
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show(exc.Message, "Ошибка");
+                    }
+                }
+            }
+        }
     }
 }
 
