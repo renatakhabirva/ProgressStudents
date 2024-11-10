@@ -120,7 +120,36 @@ namespace ProgressStudents
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                using (var db = new Progress_StudentsEntities())
+                {
+                    // Получаем выбранную запись из Summary
+                    int selectedId = Convert.ToInt32(SummaryList.SelectedItem);
+                    var summaryToRemove = db.Summary.Find(selectedId);
 
+                    if (summaryToRemove != null)
+                    {
+                        // Удаляем связанную коллекцию SubordinatesSummary
+                        db.SubordinatesSummary.RemoveRange(db.SubordinatesSummary.Where(ss => ss.SubSummary == selectedId));
+
+                        // Удаляем саму запись в Summary
+                        db.Summary.Remove(summaryToRemove);
+
+                        // Сохраняем изменения
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Выбранная запись не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при удалении данных: {ex.Message}");
+                MessageBox.Show("Произошла ошибка при удалении данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AddSummaryButton_Click(object sender, RoutedEventArgs e)

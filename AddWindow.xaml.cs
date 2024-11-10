@@ -66,11 +66,50 @@ namespace ProgressStudents
                 MessageBox.Show("Укажите семестр ", "Error");
             else
             {
-                
-                  
 
+                int classId = ClassCB.SelectedIndex + 1; 
+                int disciplineId = DisciplineCB.SelectedIndex + 1;
+                int teacherId = TeacherCB.SelectedIndex + 1;
+
+                // Получаем значение из TextBox'a
+                int semesterValue = Convert.ToInt32(SemesterTB.Text);
+
+                // Создаем новую запись в Summary
+                using (var db = new Progress_StudentsEntities())
+                {
+                    var newSummary = new Summary()
+                    {
+                        SummaryClass = classId,
+                        SummaryDiscipline = disciplineId,
+                        SummaryTeacher = teacherId,
+                        SummarySemester = semesterValue
+                    };
+                    db.Summary.Add(newSummary);
+                    db.SaveChanges();
+
+                    int newSummaryId = newSummary.SummaryID;
+
+                    // Добавляем новые записи в SubordinatesSummary
+                    foreach (var student in db.Students.Where(s => s.StudentClass == classId))
+                    {
+                        var newSubordinate = new SubordinatesSummary()
+                        {
+                            SubSummary = newSummaryId,
+                            SubStudent = student.StudentID, // Здесь используется фактическое ID студента из базы данных
+                            SubGrade = "Введите оценку"
+                        };
+                        db.SubordinatesSummary.Add(newSubordinate);
+                        
+                    }
+                    db.SaveChanges();
+
+                }
+                
+                
             }
+
+        }
         
         }     
     }
-}
+
