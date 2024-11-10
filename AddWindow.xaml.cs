@@ -67,28 +67,10 @@ namespace ProgressStudents
             else
             {
                 
-                //добавление новой записи в таблицу Summary
-                if (_currentSummary.SummaryID == 0)
-                {
-                    Progress_StudentsEntities.GetContext().Summary.Add(_currentSummary);
-                }
-                try
-                {
-                    Progress_StudentsEntities.GetContext().SaveChanges();
-                    MessageBox.Show("Информация сохранена!");
-                }
-                catch (Exception ex) 
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Error");
-                }         
+                  
 
             }
         
-        }
-        
+        }     
     }
-
-
-
-
 }
