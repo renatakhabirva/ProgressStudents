@@ -82,16 +82,29 @@
     <Compile Include="Gender.cs">
       <DependentUpon>KhabirovaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KhabirovaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KhabirovaModel.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="KhabirovaModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KhabirovaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KhabirovaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KhabirovaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ListPage.xaml.cs">
       <DependentUpon>ListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainClass.cs" />
     <Compile Include="Pulpit.cs">
+      <DependentUpon>KhabirovaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="stud.cs">
       <DependentUpon>KhabirovaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Students.cs">
@@ -124,16 +137,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="KhabirovaModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KhabirovaModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KhabirovaModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KhabirovaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -179,21 +182,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="pictures\search.png" />
+    <Resource Include="pictures\progressicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="KhabirovaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KhabirovaModel.Context.cs</LastGenOutput>
       <DependentUpon>KhabirovaModel.edmx</DependentUpon>
+      <LastGenOutput>KhabirovaModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="KhabirovaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KhabirovaModel.edmx</DependentUpon>
       <LastGenOutput>KhabirovaModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="pictures\search.png" />
-    <Resource Include="pictures\progressicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

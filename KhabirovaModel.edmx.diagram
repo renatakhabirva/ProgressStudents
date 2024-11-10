@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fdeb188e3c4542d9b0c7b91f9e1ed594" Name="Diagram1" ZoomLevel="81">
+      <Diagram DiagramId="4c3a67f4311a4809ba652048b5907bf2" Name="Diagram1">
         <EntityTypeShape EntityType="Progress_StudentsModel.Class" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Progress_StudentsModel.Discipline" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="Progress_StudentsModel.Faculty" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="Progress_StudentsModel.SubordinatesSummary" Width="1.5" PointX="9.75" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="Progress_StudentsModel.Summary" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Progress_StudentsModel.Teachers" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Progress_StudentsModel.stud" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Progress_StudentsModel.FK__Class__ClassPulp__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="Progress_StudentsModel.FK__Student__Student__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="Progress_StudentsModel.FK__Summary__Summary__6C190EBB" ManuallyRouted="false" />

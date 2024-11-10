@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace ProgressStudents
     public partial class AddWindow : Window
     {
         private Summary _currentSummary = new Summary();
+        
         public AddWindow( )
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace ProgressStudents
        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //проверка на пустоту полей
             bool IsComboBoxEmpty(ComboBox cb)
             {
                 return cb.SelectedIndex == -1 && string.IsNullOrWhiteSpace(cb.Text);
@@ -54,17 +57,17 @@ namespace ProgressStudents
                 MessageBox.Show("Выберите группу", "Error");
                 return;
             }
-
             if (IsComboBoxEmpty(TeacherCB))
             {
                 MessageBox.Show("Выберите преподавателя", "Error");
                 return;
             }
-            if (SemesterTB.Text == "")
+            if (SemesterTB.Text == "" || Convert.ToInt32(SemesterTB.Text) == 0)
                 MessageBox.Show("Укажите семестр ", "Error");
             else
             {
-                SummaryFrame.Visibility = Visibility.Visible;
+                
+                //добавление новой записи в таблицу Summary
                 if (_currentSummary.SummaryID == 0)
                 {
                     Progress_StudentsEntities.GetContext().Summary.Add(_currentSummary);
@@ -77,13 +80,15 @@ namespace ProgressStudents
                 catch (Exception ex) 
                 {
                     MessageBox.Show(ex.Message.ToString(), "Error");
-                }
-                
-            }
-        }
-    }
-        
-    
+                }         
 
+            }
         
+        }
+        
+    }
+
+
+
+
 }

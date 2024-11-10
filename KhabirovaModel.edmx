@@ -66,6 +66,28 @@
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Progress_Students.dbo.stud" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="stud">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentSurname" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="StudentClass" />
+            <PropertyRef Name="StudentDateOfBirth" />
+            <PropertyRef Name="StudentGender" />
+            <PropertyRef Name="StudentAdress" />
+            <PropertyRef Name="StudentCity" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentSurname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentPatronymic" Type="nvarchar" MaxLength="20" />
+          <Property Name="StudentClass" Type="int" Nullable="false" />
+          <Property Name="StudentDateOfBirth" Type="date" Nullable="false" />
+          <Property Name="StudentGender" Type="int" Nullable="false" />
+          <Property Name="StudentAdress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentCity" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StudentPhoneNumber" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentID" />
@@ -279,6 +301,20 @@
           <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Summary" EntityType="Self.Summary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stud" EntityType="Self.stud" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [stud].[StudentID] AS [StudentID], 
+    [stud].[StudentSurname] AS [StudentSurname], 
+    [stud].[StudentName] AS [StudentName], 
+    [stud].[StudentPatronymic] AS [StudentPatronymic], 
+    [stud].[StudentClass] AS [StudentClass], 
+    [stud].[StudentDateOfBirth] AS [StudentDateOfBirth], 
+    [stud].[StudentGender] AS [StudentGender], 
+    [stud].[StudentAdress] AS [StudentAdress], 
+    [stud].[StudentCity] AS [StudentCity], 
+    [stud].[StudentPhoneNumber] AS [StudentPhoneNumber]
+    FROM [dbo].[stud] AS [stud]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
             <End Role="Pulpit" EntitySet="Pulpit" />
             <End Role="Class" EntitySet="Class" />
@@ -468,6 +504,28 @@
           <NavigationProperty Name="Pulpit" Relationship="Self.FK__Teachers__Teache__5CD6CB2B" FromRole="Teachers" ToRole="Pulpit" />
           <NavigationProperty Name="Summary" Relationship="Self.FK__Summary__Summary__6D0D32F4" FromRole="Teachers" ToRole="Summary" />
         </EntityType>
+        <EntityType Name="stud">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentSurname" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="StudentClass" />
+            <PropertyRef Name="StudentDateOfBirth" />
+            <PropertyRef Name="StudentGender" />
+            <PropertyRef Name="StudentAdress" />
+            <PropertyRef Name="StudentCity" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentSurname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentPatronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StudentClass" Type="Int32" Nullable="false" />
+          <Property Name="StudentDateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StudentGender" Type="Int32" Nullable="false" />
+          <Property Name="StudentAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentCity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK__Class__ClassPulp__49C3F6B7">
           <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
@@ -635,6 +693,7 @@
           <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" />
           <EntitySet Name="Summary" EntityType="Self.Summary" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <EntitySet Name="stud" EntityType="Self.stud" />
           <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
             <End Role="Pulpit" EntitySet="Pulpit" />
             <End Role="Class" EntitySet="Class" />
@@ -806,6 +865,22 @@
                 <ScalarProperty Name="TeacherPulpit" ColumnName="TeacherPulpit" />
                 <ScalarProperty Name="TeacherDayOfBirth" ColumnName="TeacherDayOfBirth" />
                 <ScalarProperty Name="TeacherDayWork" ColumnName="TeacherDayWork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stud">
+            <EntityTypeMapping TypeName="Progress_StudentsModel.stud">
+              <MappingFragment StoreEntitySet="stud">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentSurname" ColumnName="StudentSurname" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentPatronymic" ColumnName="StudentPatronymic" />
+                <ScalarProperty Name="StudentClass" ColumnName="StudentClass" />
+                <ScalarProperty Name="StudentDateOfBirth" ColumnName="StudentDateOfBirth" />
+                <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
+                <ScalarProperty Name="StudentAdress" ColumnName="StudentAdress" />
+                <ScalarProperty Name="StudentCity" ColumnName="StudentCity" />
+                <ScalarProperty Name="StudentPhoneNumber" ColumnName="StudentPhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
