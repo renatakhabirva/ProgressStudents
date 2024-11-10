@@ -15,12 +15,12 @@ namespace ProgressStudents
     
     public partial class Progress_StudentsEntities : DbContext
     {
-        private static Progress_StudentsEntities _contetx;
+        private static Progress_StudentsEntities _context;
         public static Progress_StudentsEntities GetContext()
         {
-            if (_contetx == null)
-                _contetx = new Progress_StudentsEntities();
-            return _contetx;
+            if (_context == null)
+                _context = new Progress_StudentsEntities();
+            return _context;
         }
         public Progress_StudentsEntities()
             : base("name=Progress_StudentsEntities")
@@ -42,6 +42,5 @@ namespace ProgressStudents
         public virtual DbSet<SubordinatesSummary> SubordinatesSummary { get; set; }
         public virtual DbSet<Summary> Summary { get; set; }
         public virtual DbSet<Teachers> Teachers { get; set; }
-        public virtual DbSet<stud> stud { get; set; }
     }
 }

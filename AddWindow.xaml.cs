@@ -21,12 +21,14 @@ namespace ProgressStudents
     public partial class AddWindow : Window
     {
         private Summary _currentSummary = new Summary();
+        List<SubordinatesSummary> selectedSummary = new List<SubordinatesSummary>();
         
         public AddWindow( )
         {
             InitializeComponent();
-            SummaryFrame.Navigate(new SummaryPage());
             MainClass.SummaryFrame = SummaryFrame;
+            SummaryFrame.Navigate(new SummaryPage());
+            
             DataContext = _currentSummary;
             var currentClass = Progress_StudentsEntities.GetContext().Class.ToList();
             ClassCB.ItemsSource = currentClass.Select(x => $"{x.ClassName}");
@@ -36,8 +38,7 @@ namespace ProgressStudents
             TeacherCB.ItemsSource = currentTeacher.Select(x => $"{x.TeacherFullName}");
 
         }
-       
-       
+
        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -89,27 +90,35 @@ namespace ProgressStudents
 
                     int newSummaryId = newSummary.SummaryID;
 
-                    // Добавляем новые записи в SubordinatesSummary
-                    foreach (var student in db.Students.Where(s => s.StudentClass == classId))
+                    var studentsInClass = db.Students.Where(s => s.StudentClass == classId).ToList();
+                    foreach (var student in studentsInClass)
                     {
                         var newSubordinate = new SubordinatesSummary()
                         {
                             SubSummary = newSummaryId,
-                            SubStudent = student.StudentID, // Здесь используется фактическое ID студента из базы данных
+                            SubStudent = student.StudentID,
                             SubGrade = "Введите оценку"
                         };
                         db.SubordinatesSummary.Add(newSubordinate);
-                        
                     }
-                    db.SaveChanges();
+                    
+                    db.SaveChanges();  // Save all new SubordinatesSummary entries
+                                       //SummaryFrame.Visibility = Visibility.Visible;
+                    var newSubordinate1 = new SubordinatesSummary(/* параметры */);
 
+                    // Отображаем SummaryPage в текущем окне AddWindow
+                    ShowSummaryPage(newSubordinate1);
+
+
+                    MessageBox.Show("Запись успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 
-                
-            }
+            }  
+            
 
         }
         
-        }     
+        
     }
+}
 

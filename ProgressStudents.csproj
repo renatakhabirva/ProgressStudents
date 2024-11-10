@@ -104,9 +104,6 @@
     <Compile Include="Pulpit.cs">
       <DependentUpon>KhabirovaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="stud.cs">
-      <DependentUpon>KhabirovaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Students.cs">
       <DependentUpon>KhabirovaModel.tt</DependentUpon>
     </Compile>

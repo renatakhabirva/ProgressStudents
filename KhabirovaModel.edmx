@@ -64,30 +64,6 @@
           <Property Name="PulpitHousingNumber" Type="int" Nullable="false" />
           <Property Name="PulpitPhoneNumber" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Progress_Students.dbo.stud" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="stud">
-          <Key>
-            <PropertyRef Name="StudentID" />
-            <PropertyRef Name="StudentSurname" />
-            <PropertyRef Name="StudentName" />
-            <PropertyRef Name="StudentClass" />
-            <PropertyRef Name="StudentDateOfBirth" />
-            <PropertyRef Name="StudentGender" />
-            <PropertyRef Name="StudentAdress" />
-            <PropertyRef Name="StudentCity" />
-          </Key>
-          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentSurname" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="StudentName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="StudentPatronymic" Type="nvarchar" MaxLength="20" />
-          <Property Name="StudentClass" Type="int" Nullable="false" />
-          <Property Name="StudentDateOfBirth" Type="date" Nullable="false" />
-          <Property Name="StudentGender" Type="int" Nullable="false" />
-          <Property Name="StudentAdress" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StudentCity" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="StudentPhoneNumber" Type="nvarchar" MaxLength="20" />
-        </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentID" />
@@ -110,7 +86,7 @@
           <Property Name="SubID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubSummary" Type="int" Nullable="false" />
           <Property Name="SubStudent" Type="int" Nullable="false" />
-          <Property Name="SubGrade" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubGrade" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Summary">
           <Key>
@@ -206,30 +182,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subordina__SubSt__71D1E811">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
-          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Students">
-              <PropertyRef Name="StudentID" />
-            </Principal>
-            <Dependent Role="SubordinatesSummary">
-              <PropertyRef Name="SubStudent" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Subordina__SubSu__70DDC3D8">
-          <End Role="Summary" Type="Self.Summary" Multiplicity="1" />
-          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Summary">
-              <PropertyRef Name="SummaryID" />
-            </Principal>
-            <Dependent Role="SubordinatesSummary">
-              <PropertyRef Name="SubSummary" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Summary__Summary__6C190EBB">
           <End Role="Class" Type="Self.Class" Multiplicity="1" />
           <End Role="Summary" Type="Self.Summary" Multiplicity="*" />
@@ -290,6 +242,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubordinatesSummary_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubordinatesSummary_Summary">
+          <End Role="Summary" Type="Self.Summary" Multiplicity="1" />
+          <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Summary">
+              <PropertyRef Name="SummaryID" />
+            </Principal>
+            <Dependent Role="SubordinatesSummary">
+              <PropertyRef Name="SubSummary" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище Progress_StudentsModelContainer">
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
@@ -301,20 +277,6 @@
           <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Summary" EntityType="Self.Summary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="stud" EntityType="Self.stud" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [stud].[StudentID] AS [StudentID], 
-    [stud].[StudentSurname] AS [StudentSurname], 
-    [stud].[StudentName] AS [StudentName], 
-    [stud].[StudentPatronymic] AS [StudentPatronymic], 
-    [stud].[StudentClass] AS [StudentClass], 
-    [stud].[StudentDateOfBirth] AS [StudentDateOfBirth], 
-    [stud].[StudentGender] AS [StudentGender], 
-    [stud].[StudentAdress] AS [StudentAdress], 
-    [stud].[StudentCity] AS [StudentCity], 
-    [stud].[StudentPhoneNumber] AS [StudentPhoneNumber]
-    FROM [dbo].[stud] AS [stud]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
             <End Role="Pulpit" EntitySet="Pulpit" />
             <End Role="Class" EntitySet="Class" />
@@ -339,14 +301,6 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Students" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subordina__SubSt__71D1E811" Association="Self.FK__Subordina__SubSt__71D1E811">
-            <End Role="Students" EntitySet="Students" />
-            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Subordina__SubSu__70DDC3D8" Association="Self.FK__Subordina__SubSu__70DDC3D8">
-            <End Role="Summary" EntitySet="Summary" />
-            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
-          </AssociationSet>
           <AssociationSet Name="FK__Summary__Summary__6C190EBB" Association="Self.FK__Summary__Summary__6C190EBB">
             <End Role="Class" EntitySet="Class" />
             <End Role="Summary" EntitySet="Summary" />
@@ -366,6 +320,14 @@
           <AssociationSet Name="FK_Discipline_Teachers" Association="Self.FK_Discipline_Teachers">
             <End Role="Teachers" EntitySet="Teachers" />
             <End Role="Discipline" EntitySet="Discipline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubordinatesSummary_Students" Association="Self.FK_SubordinatesSummary_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubordinatesSummary_Summary" Association="Self.FK_SubordinatesSummary_Summary">
+            <End Role="Summary" EntitySet="Summary" />
+            <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -462,7 +424,7 @@
           <Property Name="StudentPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Class" Relationship="Self.FK__Student__Student__4E88ABD4" FromRole="Students" ToRole="Class" />
           <NavigationProperty Name="Gender" Relationship="Self.FK__Student__Student__4F7CD00D" FromRole="Students" ToRole="Gender" />
-          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK__Subordina__SubSt__71D1E811" FromRole="Students" ToRole="SubordinatesSummary" />
+          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK_SubordinatesSummary_Students" FromRole="Students" ToRole="SubordinatesSummary" />
         </EntityType>
         <EntityType Name="SubordinatesSummary">
           <Key>
@@ -471,9 +433,9 @@
           <Property Name="SubID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubSummary" Type="Int32" Nullable="false" />
           <Property Name="SubStudent" Type="Int32" Nullable="false" />
-          <Property Name="SubGrade" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Students" Relationship="Self.FK__Subordina__SubSt__71D1E811" FromRole="SubordinatesSummary" ToRole="Students" />
-          <NavigationProperty Name="Summary" Relationship="Self.FK__Subordina__SubSu__70DDC3D8" FromRole="SubordinatesSummary" ToRole="Summary" />
+          <Property Name="SubGrade" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_SubordinatesSummary_Students" FromRole="SubordinatesSummary" ToRole="Students" />
+          <NavigationProperty Name="Summary" Relationship="Self.FK_SubordinatesSummary_Summary" FromRole="SubordinatesSummary" ToRole="Summary" />
         </EntityType>
         <EntityType Name="Summary">
           <Key>
@@ -486,7 +448,7 @@
           <Property Name="SummarySemester" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Class" Relationship="Self.FK__Summary__Summary__6C190EBB" FromRole="Summary" ToRole="Class" />
           <NavigationProperty Name="Discipline" Relationship="Self.FK__Summary__Summary__6E01572D" FromRole="Summary" ToRole="Discipline" />
-          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK__Subordina__SubSu__70DDC3D8" FromRole="Summary" ToRole="SubordinatesSummary" />
+          <NavigationProperty Name="SubordinatesSummary" Relationship="Self.FK_SubordinatesSummary_Summary" FromRole="Summary" ToRole="SubordinatesSummary" />
           <NavigationProperty Name="Teachers" Relationship="Self.FK__Summary__Summary__6D0D32F4" FromRole="Summary" ToRole="Teachers" />
         </EntityType>
         <EntityType Name="Teachers">
@@ -503,28 +465,6 @@
           <NavigationProperty Name="Discipline" Relationship="Self.FK_Discipline_Teachers" FromRole="Teachers" ToRole="Discipline" />
           <NavigationProperty Name="Pulpit" Relationship="Self.FK__Teachers__Teache__5CD6CB2B" FromRole="Teachers" ToRole="Pulpit" />
           <NavigationProperty Name="Summary" Relationship="Self.FK__Summary__Summary__6D0D32F4" FromRole="Teachers" ToRole="Summary" />
-        </EntityType>
-        <EntityType Name="stud">
-          <Key>
-            <PropertyRef Name="StudentID" />
-            <PropertyRef Name="StudentSurname" />
-            <PropertyRef Name="StudentName" />
-            <PropertyRef Name="StudentClass" />
-            <PropertyRef Name="StudentDateOfBirth" />
-            <PropertyRef Name="StudentGender" />
-            <PropertyRef Name="StudentAdress" />
-            <PropertyRef Name="StudentCity" />
-          </Key>
-          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentSurname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StudentName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StudentPatronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="StudentClass" Type="Int32" Nullable="false" />
-          <Property Name="StudentDateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="StudentGender" Type="Int32" Nullable="false" />
-          <Property Name="StudentAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StudentCity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StudentPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Class__ClassPulp__49C3F6B7">
           <End Role="Pulpit" Type="Self.Pulpit" Multiplicity="1" />
@@ -646,7 +586,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subordina__SubSt__71D1E811">
+        <Association Name="FK_SubordinatesSummary_Students">
           <End Role="Students" Type="Self.Students" Multiplicity="1" />
           <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -658,7 +598,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Subordina__SubSu__70DDC3D8">
+        <Association Name="FK_SubordinatesSummary_Summary">
           <End Role="Summary" Type="Self.Summary" Multiplicity="1" />
           <End Role="SubordinatesSummary" Type="Self.SubordinatesSummary" Multiplicity="*" />
           <ReferentialConstraint>
@@ -693,7 +633,6 @@
           <EntitySet Name="SubordinatesSummary" EntityType="Self.SubordinatesSummary" />
           <EntitySet Name="Summary" EntityType="Self.Summary" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" />
-          <EntitySet Name="stud" EntityType="Self.stud" />
           <AssociationSet Name="FK__Class__ClassPulp__49C3F6B7" Association="Self.FK__Class__ClassPulp__49C3F6B7">
             <End Role="Pulpit" EntitySet="Pulpit" />
             <End Role="Class" EntitySet="Class" />
@@ -734,11 +673,11 @@
             <End Role="Pulpit" EntitySet="Pulpit" />
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subordina__SubSt__71D1E811" Association="Self.FK__Subordina__SubSt__71D1E811">
+          <AssociationSet Name="FK_SubordinatesSummary_Students" Association="Self.FK_SubordinatesSummary_Students">
             <End Role="Students" EntitySet="Students" />
             <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
           </AssociationSet>
-          <AssociationSet Name="FK__Subordina__SubSu__70DDC3D8" Association="Self.FK__Subordina__SubSu__70DDC3D8">
+          <AssociationSet Name="FK_SubordinatesSummary_Summary" Association="Self.FK_SubordinatesSummary_Summary">
             <End Role="Summary" EntitySet="Summary" />
             <End Role="SubordinatesSummary" EntitySet="SubordinatesSummary" />
           </AssociationSet>
@@ -865,22 +804,6 @@
                 <ScalarProperty Name="TeacherPulpit" ColumnName="TeacherPulpit" />
                 <ScalarProperty Name="TeacherDayOfBirth" ColumnName="TeacherDayOfBirth" />
                 <ScalarProperty Name="TeacherDayWork" ColumnName="TeacherDayWork" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="stud">
-            <EntityTypeMapping TypeName="Progress_StudentsModel.stud">
-              <MappingFragment StoreEntitySet="stud">
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="StudentSurname" ColumnName="StudentSurname" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="StudentPatronymic" ColumnName="StudentPatronymic" />
-                <ScalarProperty Name="StudentClass" ColumnName="StudentClass" />
-                <ScalarProperty Name="StudentDateOfBirth" ColumnName="StudentDateOfBirth" />
-                <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
-                <ScalarProperty Name="StudentAdress" ColumnName="StudentAdress" />
-                <ScalarProperty Name="StudentCity" ColumnName="StudentCity" />
-                <ScalarProperty Name="StudentPhoneNumber" ColumnName="StudentPhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

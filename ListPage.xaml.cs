@@ -21,7 +21,8 @@ namespace ProgressStudents
     /// </summary>
     public partial class ListPage : Page
     {
-        int CountRecords;
+        public int CountRecords { get; set; }
+
         public ListPage()
         {
             InitializeComponent();
@@ -30,15 +31,16 @@ namespace ProgressStudents
             SummaryList.ItemsSource = currentListPage;
             SortCB.SelectedIndex = 0;
             ComboType.SelectedIndex = 0;
-            CountRecords = currentListPage.Count;
             UpdateSummary();
         }
-
+        
         private void UpdateSummary()
         {
+
             List<Summary> currentListPage = Progress_StudentsEntities.GetContext().Summary.ToList();
             currentListPage = currentListPage.Where(p => p.Discipline.DisciplineName.ToLower().Contains(SearchTB.Text.ToLower())).ToList();
             SummaryList.ItemsSource = currentListPage;
+            CountRecords = currentListPage.Count;
             if (SortCB.SelectedIndex == 1)
             {
                 currentListPage = currentListPage.Where(p => (p.SummarySemester == 1 || p.SummarySemester == 2)).ToList();
@@ -70,6 +72,7 @@ namespace ProgressStudents
             SummaryList.ItemsSource = currentListPage;
             SummaryList.Items.Refresh();
             CountTB.Text = currentListPage.Count.ToString() + " из " + CountRecords.ToString();
+            
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -120,42 +123,56 @@ namespace ProgressStudents
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (SummaryList.SelectedItem is Summary selectedSummary)
             {
-                using (var db = new Progress_StudentsEntities())
+                try
                 {
-                    // Получаем выбранную запись из Summary
-                    int selectedId = Convert.ToInt32(SummaryList.SelectedItem);
-                    var summaryToRemove = db.Summary.Find(selectedId);
-
-                    if (summaryToRemove != null)
+                    using (var db = new Progress_StudentsEntities())
                     {
-                        // Удаляем связанную коллекцию SubordinatesSummary
-                        db.SubordinatesSummary.RemoveRange(db.SubordinatesSummary.Where(ss => ss.SubSummary == selectedId));
+                        // Reload selected summary entity to ensure it is tracked in the current context
+                        var summaryToRemove = db.Summary.Find(selectedSummary.SummaryID);
 
-                        // Удаляем саму запись в Summary
-                        db.Summary.Remove(summaryToRemove);
+                        if (summaryToRemove != null)
+                        {
+                            // Remove related SubordinatesSummary entries
+                            db.SubordinatesSummary.RemoveRange(db.SubordinatesSummary.Where(ss => ss.SubSummary == summaryToRemove.SummaryID));
 
-                        // Сохраняем изменения
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Выбранная запись не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            // Remove the Summary entry
+                            db.Summary.Remove(summaryToRemove);
+
+                            // Save changes to commit the deletions
+                            db.SaveChanges();
+
+                            MessageBox.Show("Запись и связанные данные успешно удалены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            // Refresh the list after deletion
+                            UpdateSummary();
+                            
+                        }
+                        else
+                        {
+                            MessageBox.Show("Выбранная запись не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при удалении данных: {ex.Message}");
+                    MessageBox.Show("Произошла ошибка при удалении данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Ошибка при удалении данных: {ex.Message}");
-                MessageBox.Show("Произошла ошибка при удалении данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Пожалуйста, выберите запись для удаления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            UpdateSummary();
         }
-
+        
+        
         private void AddSummaryButton_Click(object sender, RoutedEventArgs e)
         {
-
             new AddWindow().Show();
+            
         }
     }
 }
