@@ -7,7 +7,6 @@
 Подробнее о БД:
 
 [Курсовая работа БД.pdf](https://github.com/user-attachments/files/17721511/default.pdf)
-[Uploading progress_students_t.txt…]()
 
 
 Главное окно:
