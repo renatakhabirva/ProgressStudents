@@ -4,7 +4,7 @@
 
 ![image](https://github.com/user-attachments/assets/dc264bd2-f3e4-4c7b-b8d2-1559d015702f)
 
-Подробнее о БД:[Uploading progress_students.sql…]()
+Подробнее о БД:
 
 [Курсовая работа БД.pdf](https://github.com/user-attachments/files/17721511/default.pdf)
 [Uploading progress_students_t.txt…]()
